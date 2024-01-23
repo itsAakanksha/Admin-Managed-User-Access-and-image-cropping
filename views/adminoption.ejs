@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>admin</title>
+    <!-- <link rel="stylesheet"  href="style.css" /> -->
+    <link rel="stylesheet" href="/style.css">
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid box">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="login-container">
+            <div class="login-header">
+              <h3 class="mb-3">Create User</h3>
+            </div>
+            <form action="/admin/newuser" method="POST">
+              <div class="mb-3">
+                <label for="userId" class="form-label">User ID</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="userId"
+                  id="userId"
+        
+                  placeholder="Enter your user ID"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Create User
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+   
+        
+        <div class="col-md-6 mx-auto">
+          <div class="login-container">
+            <div class="login-header">
+              <h3 class="mb-3">View User</h3>
+            </div>
+            <div class="container mt-4">
+                <div class="row">
+                  <%
+                  if (user.length > 0) {
+                    for (let i = 0; i < 3; i++) {
+                  %>
+                    <div class="col-md-12 mx-auto my-2">
+                      <div class="position-relative">
+                        <!-- Numbering at top right -->
+                        <span class="position-absolute top-0 end-0 m-2 badge badge-custom"><%= i + 1 %></span>
+                                           
+                        <!-- User ID Container -->
+                        <div class="custom-bg-color p-3 rounded-3">
+                          <div class="color">
+                            <h5 class="mb-3"><%= user[i].userId %></h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <%
+                    }
+                  } else {
+                  %>
+                    <div>No user</div>
+                  <%
+                  }
+                  %>
+                  
+
+                    <div class="col-md-4 ms-auto mt-4">
+                        <a href="/admin/allusers" class=" d-grid">
+                        <button type="button" class="btn btn-primary">View</button>
+                    </a>
+                    </div>
+                </div>
+               
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
