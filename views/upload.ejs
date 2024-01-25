@@ -1,101 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <!-- Normalize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <!-- Cropper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css"
+    />
+
     <style>
-        .profile-container {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        color: #495057;
+      }
 
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
+      .container-fluid {
+        padding: 20px;
+      }
 
-        .profile-para {
-            max-width: 300px;
-            margin-bottom: 20px;
-        }
+      .login-container {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        font-weight: bold;
+      }
+
+      .form-control {
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+
+      .d-grid {
+        margin-top: 15px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 5px;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      .box-2 {
+        padding: 0.5em;
+        width: calc(100% / 2 - 1em);
+        margin-bottom: 20px;
+      }
+
+      .result,
+      .img-result {
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .options label,
+      .options input {
+        width: 4em;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+      }
+
+      .btn {
+        background: #ffffff;
+        color: #007bff;
+        border: 1px solid #007bff;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        margin: 0.8em 0.3em;
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #007bff;
+        color: #ffffff;
+      }
+
+      .hide {
+        display: none;
+      }
+
+      img {
+        max-width: 100%;
+        border-radius: 10px;
+      }
+
+      .profile-container {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+
+      .profile-para {
+        max-width: 300px;
+        margin-bottom: 20px;
+      }
+
+      .text-success {
+        color: #28a745;
+      }
+
+      .text-danger {
+        color: #dc3545;
+      }
+
+      #viewButton {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 5px;
+        color: #ffffff;
+      }
+
+      #viewButton:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
     </style>
-</head>
-<body>
-
-<div class="container-fluid">
-    <div class="row">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
         <div class="col-md-6 mx-auto">
-            <div class="login-container">
-                <div class="login-header">
-                    <h3 class="mb-3">Upload Image</h3>
-                </div>
-                <form action="/user" method="POST" enctype="multipart/form-data" id="uploadForm">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="photo" class="form-label">Photo</label>
-                        <input type="file" class="form-control" id="imageInput" name="image" accept="image/*" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-block">Upload</button>
-                    </div>
-                </form>
+          <div class="login-container">
+            <div class="login-header">
+              <h3 class="mb-3">Upload Image</h3>
             </div>
+            <form
+              action="/user"
+              method="POST"
+              enctype="multipart/form-data"
+              id="uploadForm"
+            >
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="photo" class="form-label">Photo</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="imageInput"
+                  name="image"
+                  accept="image/*"
+                  required
+                />
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Upload
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="box-2">
+            <div class="result"></div>
+          </div>
+          <!--rightbox-->
+          <div class="box-2 img-result hide">
+            <!-- result of crop -->
+            <img class="cropped" src="" alt="" />
+          </div>
+          <!-- input file -->
+          <div class="box">
+            <div class="options hide">
+              <label> Width</label>
+              <input
+                type="number"
+                class="img-w"
+                value="300"
+                min="100"
+                max="1200"
+              />
+            </div>
+            <!-- save btn -->
+            <button class="btn save hide">Save</button>
+            <!-- download btn -->
+            <a href="" class="btn download hide">Download</a>
+          </div>
         </div>
 
         <!-- Profile display section -->
         <div class="col-md-6">
-            <div class="profile-container d-none" id="profileContainer">
-                <img src="<%= profileimage ? profileimage : '' %>" alt="Profile Image" class="profile-image img-fluid" id="profileImage">
-                <h4 id="profileName" class="fw-bold"><%= name ? name : '' %></h4>
-                <p class="mx-auto <%= isverify ? 'text-success' : 'text-danger' %>">
-                    <%= isverify ? "You are verified" : "You are not verified" %>
-                </p>
-            </div>
+          <div class="profile-container d-none" id="profileContainer">
+            <img
+              src="<%= profileimage ? profileimage : '' %>"
+              alt="Profile Image"
+              class="profile-image img-fluid"
+              id="profileImage"
+            />
+            <h4 id="profileName" class="fw-bold"><%= name ? name : '' %></h4>
+            <p class="mx-auto <%= isverify ? 'text-success' : 'text-danger' %>">
+              <%= isverify ? "You are verified" : "You are not verified" %>
+            </p>
+          </div>
         </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-outline-primary position-absolute top-0 end-0 m-4"
+        id="viewButton"
+      >
+        View
+      </button>
     </div>
 
-    <button type="button" class="btn btn-outline-primary position-absolute top-0 end-0 m-4" id="viewButton">View</button>
-</div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Cropper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+    <script>
+      // Function to handle the view button click
+      document
+        .getElementById("viewButton")
+        .addEventListener("click", function () {
+          var profileContainer = document.getElementById("profileContainer");
+          var viewButton = document.getElementById("viewButton");
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script>
-    // Function to handle the view button click
-    document.getElementById('viewButton').addEventListener('click', function () {
-        var profileContainer = document.getElementById('profileContainer');
-        var viewButton = document.getElementById('viewButton');
+          // Toggle the display of the profile container
+          profileContainer.classList.toggle("d-none");
 
-        // Toggle the display of the profile container
-        profileContainer.classList.toggle('d-none');
+          // Update the button content based on the current state
+          if (profileContainer.classList.contains("d-none")) {
+            viewButton.textContent = "View";
+          } else {
+            viewButton.textContent = "Close";
+          }
 
-        // Update the button content based on the current state
-        if (profileContainer.classList.contains('d-none')) {
-            viewButton.textContent = 'View';
-        } else {
-            viewButton.textContent = 'Close';
+          // Get values from the form
+          var name = document.getElementById("name").value;
+          var imageInput = document.getElementById("imageInput");
+          var image = URL.createObjectURL(imageInput.files[0]);
+
+          // Update the profile display
+          document.getElementById("profileName").innerText = name;
+          document.getElementById("profileImage").src = image;
+          document.getElementById("profilePara").innerText =
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        });
+
+      let result = document.querySelector(".result"),
+        img_result = document.querySelector(".img-result"),
+        img_w = document.querySelector(".img-w"),
+        options = document.querySelector(".options"),
+        save = document.querySelector(".save"),
+        cropped = document.querySelector(".cropped"),
+        dwn = document.querySelector(".download"),
+        upload = document.querySelector("#imageInput"),
+        cropper = "";
+
+      // on change show image with crop options
+      upload.addEventListener("change", (e) => {
+        if (e.target.files.length) {
+          // start file reader
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (e.target.result) {
+              // create new image
+              let img = document.createElement("img");
+              img.id = "image";
+              img.src = e.target.result;
+              // clean result before
+              result.innerHTML = "";
+              // append new image
+              result.appendChild(img);
+              // show save btn and options
+              save.classList.remove("hide");
+              options.classList.remove("hide");
+              // init cropper
+              cropper = new Cropper(img);
+            }
+          };
+          reader.readAsDataURL(e.target.files[0]);
         }
+      });
 
-        // Get values from the form
-        var name = document.getElementById('name').value;
-        var imageInput = document.getElementById('imageInput');
-        var image = URL.createObjectURL(imageInput.files[0]);
-
-        // Update the profile display
-        document.getElementById('profileName').innerText = name;
-        document.getElementById('profileImage').src = image;
-        document.getElementById('profilePara').innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    });
-</script>
-
-</body>
+      // save on click
+      save.addEventListener("click", (e) => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = cropper
+          .getCroppedCanvas({
+            width: img_w.value, // input value
+          })
+          .toDataURL();
+        // remove hide class of img
+        cropped.classList.remove("hide");
+        img_result.classList.remove("hide");
+        // show image cropped
+        cropped.src = imgSrc;
+        dwn.classList.remove("hide");
+        dwn.download = "imagename.png";
+        dwn.setAttribute("href", imgSrc);
+      });
+    </script>
+  </body>
 </html>

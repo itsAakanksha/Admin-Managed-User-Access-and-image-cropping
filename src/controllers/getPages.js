@@ -12,7 +12,7 @@ res.render('adminoption',{user:users})
 const getuser = async(req,res)=>{
 
     // const users = await User.find({role:'user'})
-    const users = await User.find({role:'user'}, 'userId').limit(3);
+    const users = await User.find({role:'user'}, 'userId').limit(2);
 
      console.log(users)
 
