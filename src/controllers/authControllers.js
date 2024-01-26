@@ -94,11 +94,11 @@ const restrict = (role) => {
   return (req, res, next) => {
     if (role.admin.id != role) {
       // we will get the user id as we are protecting by checking the user and defining user in req.user
-      const error = ApiError(
+       ApiError(
         403,
         "You do not have permission to perform this action"
-      );
-      next(error);
+       )
+     
     }
     next();
   };
