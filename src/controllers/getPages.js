@@ -14,13 +14,13 @@ const getuser = async(req,res)=>{
     // const users = await User.find({role:'user'})
     const users = await User.find({role:'user'}, 'userId').limit(2);
 
-     console.log(users)
+    //  console.log(users)
 
    res.render('adminoption',{user:users})
 }
 const allusers = async(req,res)=>{
     const users = await User.find({role:'user'});
-    console.log("user::",users)
+    // console.log("user::",users)
     res.render('table',{user:users})
 }
 

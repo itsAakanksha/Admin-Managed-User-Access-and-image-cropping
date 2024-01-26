@@ -21,11 +21,11 @@ const uploadimage = asyncHandler(
             
             throw new ApiError(401, "Invalid Access Token")
         }
-        console.log("got from cookies ",user)
+        // console.log("got from cookies ",user)
        
         const {name} = req.body;
-        console.log(name);
-        console.log(req.files)
+        // console.log(name);
+        // console.log(req.files)
         const imageLocal = req.files?.image[0]?.path;
         if (!imageLocal) {
             throw new ApiError(400, 'image file is required')

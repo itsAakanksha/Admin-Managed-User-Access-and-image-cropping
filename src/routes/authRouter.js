@@ -10,6 +10,7 @@ import { deleteuser } from '../controllers/adminwork.js';
 import { userDashboard } from '../controllers/getPages.js';
 import { uploadimage } from '../controllers/userWork.js';
 import { upload } from '../middlewares/multer.middleware.js';
+import { get } from 'mongoose';
 // import { getlogin } from '../controllers/adminwork.js';
 const router = Router()
 
@@ -29,7 +30,7 @@ const getlogin = async(req,res) =>{
          console.log(" no login page ")
     }
 }
-
+router.get('/',getSignup)
 router.get('/signup',getSignup)
 router.route('/signup').post(signup);
 router.route('/login').get(getlogin)

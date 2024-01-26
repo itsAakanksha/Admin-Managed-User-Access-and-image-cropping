@@ -11,7 +11,7 @@ function signtoken(id) {
 
 const addUser = asyncHandler(async (req, res, next) => {
     const { userId, password } = req.body;
-    console.log("user id ", userId);
+    // console.log("user id ", userId);
 
     if ([userId, password].some(
         (field) => field?.trim() === ''
@@ -41,14 +41,14 @@ const addUser = asyncHandler(async (req, res, next) => {
 
     const createduser = await User.findById(newuser._id).select("-password");
 
-    console.log(createduser);
+    // console.log(createduser);
     res.redirect('/admin/newuser');
 });
 
 const deleteuser = asyncHandler(async(req,res,next)=>{
-    console.log("hii delete")
+    // console.log("hii delete")
     const userIdToDelete = req.query.id;
-    console.log(userIdToDelete)
+    // console.log(userIdToDelete)
     await User.findOneAndDelete({ userId: userIdToDelete });
     res.redirect('/admin/allusers');
    

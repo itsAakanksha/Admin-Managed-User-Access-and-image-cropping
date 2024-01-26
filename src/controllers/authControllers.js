@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/apiError.js";
 
 function signtoken(id) {
-  console.log("what is prints : ",id)
+  // console.log("what is prints : ",id)
  return jwt.sign({ id }, process.env.SECRET_STR, {
     expiresIn: process.env.LOGIN_EXPIRES,
   });
@@ -12,7 +12,7 @@ function signtoken(id) {
 
 const signup = asyncHandler(async (req, res, next) => {
     const {userId,password} = req.body;
-    console.log("user id ",userId)
+    // console.log("user id ",userId)
 
     if ([userId,password].some(
         (field) => field?.trim() === ''
@@ -41,7 +41,7 @@ if (existedUser) {
   // });
   res.redirect('/login')
 
-  console.log(createduser);
+  // console.log(createduser);
 });
 
 const login = asyncHandler(async (req, res, next) => {
@@ -49,17 +49,17 @@ const login = asyncHandler(async (req, res, next) => {
 
   // checking are both of them present or not
   if (!userId || !password) {
-    console.log('hello')
+    // console.log('hello')
     throw new ApiError(500, 'email or password are not present')
 
   }
   // checking are the correct or not
   const user = await User.findOne({ userId });
-  console.log("user: ",user)
+  // console.log("user: ",user)
    const isMatch = await user.isPasswordCorrect(password)
-   console.log("isMatch :",isMatch)
+  //  console.log("isMatch :",isMatch)
   if (!user || !(await user.isPasswordCorrect(password))) {
-    console.log("hii")
+    // console.log("hii")
     throw new ApiError(500, 'email or password are not correct')
   }
 //   console.log(user._id.toString()) ;
@@ -68,7 +68,7 @@ const login = asyncHandler(async (req, res, next) => {
     expires: new Date(Date.now() + 9000000000),
     httpOnly:true
   })
-  console.log("this is token",token);
+  // console.log("this is token",token);
 
   // res.status(200).json({
   //   status: "success",

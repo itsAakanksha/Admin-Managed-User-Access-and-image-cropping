@@ -27,4 +27,5 @@ app.set('views','./views')
 
 app.use('/',authRouter)
 
+
 export {app}
