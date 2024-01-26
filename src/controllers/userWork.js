@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Data } from "../models/userData.model.js";
 import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/apiError.js";
+import { ApiError } from "../utils/ApiError.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { uploadFileonCloudnary } from "../utils/cloudinary.js";
 import { apiResponse } from "../utils/apiResponse.js";
