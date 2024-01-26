@@ -7,7 +7,6 @@
     }
 
     .box {
-        height: 100vh;
         display: flex;
         overflow: hidden;
     }
@@ -16,20 +15,20 @@
         background-image: url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         background-size: cover;
         background-position: center;
-        height: 100%;
+        /* flex: 1; */
         width: 50%;
         position: relative;
-        z-index: 1;
     }
 
     .logo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 200px;
-        height: 200px;
-        z-index: 2;
+        width: 50%;
+        max-width: 200px;
+        height: auto;
+        margin: auto;
+        
+        display: block;
+        /* position: absolute; */
+        
     }
 
     .container-fluid {
@@ -41,6 +40,9 @@
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        /* flex: 1; */
+        /* max-width: 500px; */
+        margin: auto;
         width: 50%;
     }
 
@@ -74,15 +76,30 @@
         border-color: #0056b3;
     }
 
+    @media (max-width: 768px) {
+        .box {
+            flex-direction: column;
+        }
+
+        .logo-back {
+            width: 100%;
+        }
+
+        .login-container {
+            width: 100%;
+            border-radius: 0;
+        }
+    }
 </style>
 
-<div class="container-fluid box">
+<div class="container-fluid box ">
     <div class="logo-back">
         <img src="https://static.vecteezy.com/system/resources/thumbnails/003/731/316/small/web-icon-line-on-white-background-image-for-web-presentation-logo-icon-symbol-free-vector.jpg" alt="not loaded" class="img-fluid logo">
     </div>
     <div class="login-container">
         <div class="login-header">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/003/731/316/small/web-icon-line-on-white-background-image-for-web-presentation-logo-icon-symbol-free-vector.jpg" alt="Your Logo">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/003/731/316/small/web-icon-line-on-white-background-image-for-web-presentation-logo-icon-symbol-free-vector.jpg"
+             alt="Your Logo">
             <h3 class="mb-3">Admin Signup</h3>
         </div>
         <form action="/signup" method="POST">

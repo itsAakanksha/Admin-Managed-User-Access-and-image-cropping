@@ -41,14 +41,14 @@ router.route('/login').post(login);
 
 // SECURED ROUTES
 router.route('/admin').get(verifyjwt,adminwork);
-router.route('/admin/newuser').post(addUser)
+router.route('/admin/newuser').post(verifyjwt,addUser)
 router.route('/admin/newuser').get(verifyjwt,adminwork)
 router.route('/admin/getuser').get(verifyjwt,getuser)
 router.route('/admin/allusers').get(verifyjwt,allusers)
 router.route('/admin/allusers/delete').get(verifyjwt,deleteuser)
 router.route('/admin/allusers/verify').get(verifyjwt,verifyuser)
 router.route('/user').get(verifyjwt,userDashboard)
-router.route('/user').post((upload.fields(
+router.route('/user').post(verifyjwt,(upload.fields(
     [
         {
             name:"image",
